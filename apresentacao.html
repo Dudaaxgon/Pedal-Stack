@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Pedal Stack — Apresentação</title>
+    <style>
+      @font-face { font-family: "Bricolage Grotesque"; font-weight: 800; src: url("./fonts/bricolage-grotesque-latin-800-normal.woff2") format("woff2"); }
+      @font-face { font-family: Figtree; font-weight: 400; src: url("./fonts/figtree-latin-400-normal.woff2") format("woff2"); }
+      @font-face { font-family: Figtree; font-weight: 600; src: url("./fonts/figtree-latin-600-normal.woff2") format("woff2"); }
+      :root { --paper: #FBF4E4; --green: #12573F; --green-dark: #0B4130; --yellow: #FFC42E; --ink: #1B1A17; --taupe: #5E594C; }
+      * { box-sizing: border-box; }
+      html, body { height: 100%; margin: 0; }
+      body {
+        display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 6vw;
+        padding: 3vh 7vw; overflow: hidden; font-family: Figtree, sans-serif; color: var(--ink);
+        background: radial-gradient(circle at 92% 50%, var(--yellow) 0 22vw, transparent 22.1vw), var(--paper);
+      }
+      .intro { max-width: 540px; }
+      .brand { display: inline-flex; align-items: center; gap: 10px; font-family: "Bricolage Grotesque", sans-serif; font-size: 22px; font-weight: 800; letter-spacing: -.02em; }
+      .brand-mark { width: 44px; height: 44px; display: grid; place-items: center; border-radius: 13px; background: var(--yellow); color: var(--green); transform: rotate(-6deg); }
+      .brand-mark svg { width: 24px; height: 24px; }
+      h1 { margin: 30px 0 18px; font-family: "Bricolage Grotesque", sans-serif; font-size: clamp(42px, 5vw, 70px); font-weight: 800; line-height: .98; letter-spacing: -.035em; }
+      h1 em { color: var(--green); font-style: normal; background: linear-gradient(transparent 62%, var(--yellow) 62%, var(--yellow) 90%, transparent 90%); padding: 0 4px; }
+      .intro p { color: var(--taupe); font-size: 17px; line-height: 1.7; }
+      .pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
+      .pill { padding: 7px 12px; border-radius: 8px; background: var(--green); color: #fff; font-size: 13px; font-weight: 600; }
+      .pill b { color: var(--yellow); }
+      .team { margin-top: 28px; color: var(--taupe); font-size: 13px; line-height: 1.8; }
+      .controls { margin-top: 16px; }
+      .controls button { padding: 8px 14px; border: 1px solid #c9b78a; border-radius: 8px; background: #fffcf5; color: var(--ink); font: 600 12px Figtree, sans-serif; cursor: pointer; }
+
+      .stage { width: 410px; height: 860px; transform-origin: center; }
+      .phone {
+        position: relative; width: 410px; height: 860px; padding: 14px; border-radius: 58px;
+        background: #1d1d1b; box-shadow: 0 0 0 2px #3a3a36, 0 40px 90px rgba(27, 26, 23, .35);
+      }
+      .phone::before { content: ""; position: absolute; top: 26px; left: 50%; z-index: 2; width: 112px; height: 30px; transform: translateX(-50%); border-radius: 20px; background: #1d1d1b; }
+      .screen { width: 100%; height: 100%; overflow: hidden; border-radius: 45px; background: var(--paper); }
+      .screen iframe { width: 100%; height: 100%; border: 0; padding-top: 34px; background: var(--paper); }
+
+      @media (max-width: 900px) {
+        body { grid-template-columns: 1fr; justify-items: center; overflow: auto; padding: 24px 16px; background: var(--paper); }
+        .intro { display: none; }
+      }
+    </style>
+  </head>
+  <body>
+    <section class="intro">
+      <span class="brand"><span class="brand-mark"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 2 4.5 13.5h6L9.5 22l9-11.5h-6z"/></svg></span>Pedal Stack</span>
+      <h1>Alugar bicicleta, <em>sem surpresa</em> na hora de pagar.</h1>
+      <p>SCB – Sistema de Controle de Bicicletário da VáDeBicicleta. Cadastro com cartão validado, aluguel sem cobrança duplicada, aviso antes da taxa extra e extrato transparente.</p>
+      
+      <p class="team">Maria Eduarda Pires – Scrum Master · Yasmin Rezende – Product Owner<br>Luciana Tavares – Front-end · Luiza Ribeiro – QA e Documentação</p>
+      <div class="controls"><button type="button" id="reload">Recarregar app</button></div>
+    </section>
+    <div class="stage" id="stage">
+      <div class="phone"><div class="screen"><iframe id="frame" src="./index.html" title="Aplicativo Pedal Stack"></iframe></div></div>
+    </div>
+    <script>
+      const stage = document.querySelector("#stage");
+      function fit() {
+        const scale = Math.min(1, (window.innerHeight * 0.94) / 860);
+        stage.style.transform = `scale(${scale})`;
+        stage.style.margin = `${(860 * scale - 860) / 2}px ${(410 * scale - 410) / 2}px`;
+      }
+      window.addEventListener("resize", fit);
+      fit();
+      document.querySelector("#reload").addEventListener("click", () => {
+        document.querySelector("#frame").contentWindow.location.reload();
+      });
+    </script>
+  </body>
+</html>
